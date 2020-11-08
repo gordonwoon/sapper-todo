@@ -8,6 +8,7 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import alias from '@rollup/plugin-alias';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -17,6 +18,15 @@ const onwarn = (warning, onwarn) =>
 	(warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
 	(warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
 	onwarn(warning);
+
+
+const aliases = alias({
+	resolve: ['.svelte', '.js'],
+	entries: [
+		{ find: 'components', replacement: 'src/components' },
+		{ find: 'routes', replacement: 'src/routes' }
+	]
+});
 
 export default {
 	client: {
@@ -61,7 +71,9 @@ export default {
 
 			!dev && terser({
 				module: true
-			})
+			}),
+
+			aliases
 		],
 
 		preserveEntrySignatures: false,
@@ -89,7 +101,8 @@ export default {
 			resolve({
 				dedupe: ['svelte']
 			}),
-			commonjs()
+			commonjs(),
+			aliases
 		],
 		external: Object.keys(pkg.dependencies).concat(require('module').builtinModules),
 

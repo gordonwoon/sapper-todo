@@ -1,8 +1,9 @@
 <script>
   import Nav from 'routes/_components/Nav.svelte'
+  export let segment
 </script>
 
-<Nav />
+<Nav {segment} />
 
 <main>
 	<slot></slot>

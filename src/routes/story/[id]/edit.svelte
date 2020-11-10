@@ -1,7 +1,16 @@
-<script>
+<script context="module">
   import StoryForm from '../_StoryForm.svelte'
 
-  let story = { _id: 1, title: 'Story Title', type: 'link', content: 'https://svelte.dev/' }
+  export async function preload({ params }) {
+    const res = await this.fetch(`/story/${params.id}.json`);
+    const story = await res.json();
+
+    return { story };
+  }
+</script>
+
+<script>
+  export let story;
 </script>
 
 <svelte:head>

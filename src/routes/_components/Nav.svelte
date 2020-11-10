@@ -1,4 +1,11 @@
-<nav class="navbar">
+<script>
+  export let segment;
+  const handleClick = () => {
+    console.log(segment);
+  }
+</script>
+
+<nav class="navbar" on:click={handleClick}>
   <div class="navbar-left">
     <a
       class="logo"

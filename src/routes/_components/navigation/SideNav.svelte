@@ -10,20 +10,14 @@
   @import 'src/styles/theme.scss';
 
   .side-nav {
-    width: 6rem;
-    padding: 1.8rem;
+    width: 7rem;
+    padding: 2rem 1.5rem;
     gap: 1rem;
     transition: 0.15s;
     align-items: flex-start;
     text-align: left;
     &.expand {
       width: 20rem;
-    }
-  }
-  .nav-item {
-    white-space: nowrap;
-    > * {
-      display: inline-block;
     }
   }
 
@@ -42,8 +36,8 @@
 
 <div class="side-nav flex-column" class:expand>
   {#each tags as tag}
-    <div class="nav-item">
-      <Icon iconText={tag.name} iconClass="margin-right-small" large />
+    <div class="flex-row flex-align-items-center">
+      <Icon iconText={tag.name} iconClass="margin-right-medium" border medium />
       {#if expand}<div transition:fade={{ duration: 150, easing: linear }} >{tag.name}</div>{/if}
     </div>
   {/each}

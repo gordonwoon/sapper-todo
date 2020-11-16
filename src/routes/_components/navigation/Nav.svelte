@@ -1,8 +1,13 @@
 <script>
   import MenuIcon from 'routes/_components/navigation/MenuIcon.svelte'
   import Icon from 'components/Icon.svelte'
-  let search
+
   export let handleExpand
+  export let segment
+
+  console.log('segment', segment);
+
+  let search
 </script>
 
 <style lang="scss">
@@ -49,7 +54,7 @@
     <a href="/"><Icon
         iconName="fas fa-check-double"
         iconClass="margin-right-small"
-        border />
+        fill />
       Do.Only</a>
   </div>
   <div class="flex-grow"><input bind:value={search} /></div>

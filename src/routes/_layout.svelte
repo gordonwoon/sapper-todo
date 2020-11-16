@@ -1,7 +1,6 @@
 <script context="module">
   export async function preload({ params }) {
-    const res = await this.fetch(`/tag.json`);
-    const tags = await res.json();
+    const tags = await this.fetch(`/tag.json`).then(res => res.json());
 
     return { tags };
   }
@@ -21,6 +20,10 @@
 
 <style lang="scss" global>
   @import 'src/styles/global.scss';
+
+  main {
+    padding: 1.5rem;
+  }
 </style>
 
 <div class="height-100 flex-column">

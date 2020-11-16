@@ -26,10 +26,6 @@
   }
   .logo {
     font-size: 1.8rem;
-    white-space: nowrap;
-    > * {
-      display: inline-block;
-    }
   }
   input {
     height: 70%;
@@ -51,11 +47,11 @@
 <div class="nav flex-row flex-align-items-center">
   <MenuIcon {handleExpand} />
   <div class="logo">
-    <a href="/"><Icon
+    <a href="/" class="flex-row"><Icon
         iconName="fas fa-check-double"
-        iconClass="margin-right-small"
+        iconClass="margin-right-medium"
         fill />
-      Do.Only</a>
+      <div>Do.Only</div></a>
   </div>
   <div class="flex-grow"><input bind:value={search} /></div>
   <div class="xs-hide" href="/login">

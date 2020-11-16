@@ -17,7 +17,7 @@
     height: 5px;
     background-color: #333;
     margin: 6px 0;
-    transition: 0.25s;
+    transition: 0.15s;
   }
   .checked {
     > .bar1 {

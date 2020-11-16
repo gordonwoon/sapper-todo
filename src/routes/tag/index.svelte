@@ -1,7 +1,21 @@
-<script>
-  import Stories from 'routes/_components/Stories.svelte'
+<script context="module">
+
+  export async function preload({ params }) {
+    const res = await this.fetch(`/tag.json`);
+    const tags = await res.json();
+
+    return { tags };
+  }
 </script>
 
-<div class="homepage page">
-  <Stories/>
+<script>
+  import Icon from 'components/Icon.svelte'
+  export let tags
+</script>
+
+
+<div>
+  {#each tags as tag}
+    <Icon iconText={tag.name} />
+  {/each}
 </div>

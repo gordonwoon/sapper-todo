@@ -4,5 +4,17 @@ export let tasks = [
     tags: ['Home']
   },
   { title: '9am Meeting', tags: ['Work'] },
+  { title: 'Gaming PC', tags: ['Shopping'] },
+  {
+    title: 'Water Plants',
+    tags: ['Home']
+  },
+  { title: '9am Meeting', tags: ['Work'] },
+  { title: 'Gaming PC', tags: ['Shopping'] },
+  {
+    title: 'Water Plants',
+    tags: ['Home']
+  },
+  { title: '9am Meeting', tags: ['Work'] },
   { title: 'Gaming PC', tags: ['Shopping'] }
 ]

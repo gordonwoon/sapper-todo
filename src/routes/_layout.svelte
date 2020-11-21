@@ -30,7 +30,7 @@
   <Nav {handleExpand} {segment} />
   <div class="flex-row flex-grow">
     <SideNav {expand} {tags}/>
-    <main>
+    <main class="flex-grow">
       <slot />
     </main>
   </div>

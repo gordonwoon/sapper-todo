@@ -24,6 +24,8 @@
 
 <style lang="scss">
   .grid-container {
+    // grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+    grid-template-columns: repeat(auto-fill, 24rem);
     grid-gap: 1rem;
   }
 </style>

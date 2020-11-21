@@ -1,6 +1,7 @@
 <script>
   import MenuIcon from 'routes/_components/navigation/MenuIcon.svelte'
   import Icon from 'components/Icon.svelte'
+  import Input from 'components/Input.svelte'
 
   export let handleExpand
   export let segment
@@ -27,7 +28,7 @@
   .logo {
     font-size: 1.8rem;
   }
-  input {
+  .input-container > :global(input) {
     height: 3.5rem;
     width: 70%;
   }
@@ -38,7 +39,7 @@
     }
   }
   @media only screen and (max-width: 600px) {
-    input {
+    .input-container > :global(input) {
       width: 90%;
     }
   }
@@ -53,7 +54,7 @@
         fill />
       <div>Do.Only</div></a>
   </div>
-  <div class="flex-grow"><input bind:value={search} /></div>
+  <div class="flex-grow input-container"><Input bind:value={search} /></div>
   <div class="xs-hide" href="/login">
     <a href="/login"> <span class="text-center">Log in</span> </a>
   </div>

@@ -9,35 +9,36 @@
 
 <script>
   import Watches from 'routes/_components/Watches.svelte'
-  import { onMount, tick } from 'svelte'
+  import Input from 'components/Input.svelte';
+  import { onMount } from 'svelte'
 
   export let watches
   export let tasks
 
   let query
   let inputRef
-  onMount(async () => {
-    // await tick()
-    // inputRef.focus()
+  onMount(() => {
     setTimeout(() => inputRef.focus(), 0)
   })
 </script>
 
 <style lang="scss">
-  .query-container {
+  @import 'src/styles/theme.scss';
+  .input-container {
     width: 60rem;
     height: 5rem;
     margin: 3.2rem auto 1.6rem auto;
-  }
-  input {
+
+    > :global(input) {
     width: 60rem;
     height: 3.5rem;
+    }
   }
 </style>
 
 <div>
-  <div class="query-container">
-    <input bind:this={inputRef} bind:value={query} />
+  <div class="input-container">
+    <Input bind:ref={inputRef} bind:value={query} />
   </div>
   <Watches {watches} {tasks} />
 </div>

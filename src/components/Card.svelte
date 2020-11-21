@@ -14,7 +14,7 @@
 
   .card {
     border: 1px solid $border-color;
-    border-radius: 2px;
+    border-radius: 5px;
     padding: 1rem;
   }
 </style>

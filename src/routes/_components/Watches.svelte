@@ -3,6 +3,23 @@
 
   export let watches = []
   export let tasks = []
+
+  let handleDragStart = ev => {
+    ev.dataTransfer.setData('text', ev.target.id)
+  }
+
+  let handleDragOver = ev => {
+    ev.preventDefault()
+  }
+
+  let handleDrop = ev => {
+    const sourceId = ev.dataTransfer.getData('text');
+    const targetId = ev.target.id;
+
+    const temp = watches[sourceId];
+    watches[sourceId] = watches[targetId];
+    watches[targetId] = temp;
+  }
 </script>
 
 <style lang="scss">
@@ -12,7 +29,13 @@
 </style>
 
 <div class="grid-container">
-  {#each watches as watch}
-    <Watch tags={watch.tags} {tasks} />
+  {#each watches as watch, id}
+    <Watch
+      tags={watch.tags}
+      {tasks}
+      {id}
+      {handleDragStart}
+      {handleDragOver}
+      {handleDrop} />
   {/each}
 </div>

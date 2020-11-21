@@ -28,7 +28,7 @@
     font-size: 1.8rem;
   }
   input {
-    height: 70%;
+    height: 3.5rem;
     width: 70%;
   }
   a {

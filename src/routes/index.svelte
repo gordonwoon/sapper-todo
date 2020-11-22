@@ -9,14 +9,21 @@
 
 <script>
   import Watches from 'routes/_components/Watches.svelte'
-  import Input from 'components/Input.svelte';
+  import Input from 'components/Input.svelte'
   import { onMount } from 'svelte'
+  import { compile } from 'routes/_helper/query.js'
 
   export let watches
   export let tasks
 
   let query
   let inputRef
+
+  const handleQueryChange = () => {
+    compile(query)
+    query = ''
+  }
+
   onMount(() => {
     setTimeout(() => inputRef.focus(), 0)
   })
@@ -30,15 +37,15 @@
     margin: 3.2rem auto 1.6rem auto;
 
     > :global(input) {
-    width: 60rem;
-    height: 3.5rem;
+      width: 60rem;
+      height: 3.5rem;
     }
   }
 </style>
 
 <div>
   <div class="input-container">
-    <Input bind:ref={inputRef} bind:value={query} />
+    <Input bind:ref={inputRef} bind:value={query} handleChange={handleQueryChange}/>
   </div>
   <Watches {watches} {tasks} />
 </div>

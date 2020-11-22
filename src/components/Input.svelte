@@ -1,6 +1,7 @@
 <script>
-  export let value
-  export let ref
+  export let value = ''
+  export let ref = {}
+  export let handleChange = () => {}
 </script>
 
 <style lang="scss">
@@ -14,4 +15,4 @@
   }
 </style>
 
-<input bind:this={ref} bind:value />
+<input bind:this={ref} bind:value on:change={handleChange} />

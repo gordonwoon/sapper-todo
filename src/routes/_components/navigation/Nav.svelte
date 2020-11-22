@@ -6,8 +6,6 @@
   export let handleExpand
   export let segment
 
-  console.log('segment', segment);
-
   let search
 </script>
 

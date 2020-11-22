@@ -18,8 +18,17 @@
   let query
   let inputRef
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { action, tags, task } = compile(query)
+    if (action && task) {
+      const res = await fetch('/task.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task, tags })
+      }).then(res => res.json())
+
+      tasks = res;
+    }
     query = ''
   }
 
@@ -48,5 +57,5 @@
       <input bind:this={inputRef} bind:value={query} placeholder="Add tasks here" type="text" />
     </form>
   </div>
-  <Watches {watches} {tasks} />
+  <Watches bind:watches bind:tasks />
 </div>

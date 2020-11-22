@@ -39,16 +39,20 @@
 
 <section>
   <Card {id} draggable {handleDragStart} {handleDragOver} {handleDrop}>
-    <span>Title</span>
+    <span>
+      {#each tags as tag}
+        @{tag}
+      {/each}
+    </span>
     <div class="watch">
-      {#each filteredTasks as task}
-        <div class="task" contenteditable aria-multiline>{task.title}</div>
+      {#each filteredTasks as item}
+        <div class="task" contenteditable aria-multiline>{item.task}</div>
       {/each}
     </div>
     <hr />
     <div class="done">
-      {#each filteredTasks as task}
-        <div class="task" aria-multiline>{task.title}</div>
+      {#each filteredTasks as item}
+        <div class="task" aria-multiline>{item.task}</div>
       {/each}
     </div>
   </Card>

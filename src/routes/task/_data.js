@@ -1,20 +1,8 @@
 export let tasks = [
   {
-    title: 'Water Plants',
+    task: 'Water Plants',
     tags: ['Home']
   },
-  { title: '9am Meeting', tags: ['Work'] },
-  { title: 'Gaming PC', tags: ['Shopping'] },
-  {
-    title: 'Water Plants',
-    tags: ['Home']
-  },
-  { title: '9am Meeting', tags: ['Work'] },
-  { title: 'Gaming PC', tags: ['Shopping'] },
-  {
-    title: 'Water Plants',
-    tags: ['Home']
-  },
-  { title: '9am Meeting', tags: ['Work'] },
-  { title: 'Gaming PC', tags: ['Shopping'] }
+  { task: '9am Meeting', tags: ['Work'] },
+  { task: 'Gaming PC', tags: ['Shopping'] }
 ]

@@ -27,14 +27,15 @@
     // grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
     grid-template-columns: repeat(auto-fill, 24rem);
     grid-gap: 1rem;
+    align-items: flex-start;
   }
 </style>
 
 <div class="grid-container">
   {#each watches as watch, id}
     <Watch
-      tags={watch.tags}
-      {tasks}
+      bind:tags={watch.tags}
+      bind:tasks
       {id}
       {handleDragStart}
       {handleDragOver}

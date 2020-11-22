@@ -1,0 +1,13 @@
+input {
+  padding: 0 10px;
+  border: 0;
+  border-radius: 5px;
+  color: white;
+  background-color: $border-color;
+  &::placeholder {
+    color: lightgray;
+  }
+  &:focus {
+    outline: none;
+  }
+}

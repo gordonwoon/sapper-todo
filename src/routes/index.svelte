@@ -9,7 +9,6 @@
 
 <script>
   import Watches from 'routes/_components/Watches.svelte'
-  import Input from 'components/Input.svelte'
   import { onMount } from 'svelte'
   import { compile } from 'routes/_helper/query.js'
 
@@ -19,8 +18,8 @@
   let query
   let inputRef
 
-  const handleQueryChange = () => {
-    compile(query)
+  const handleSubmit = () => {
+    const { action, tags, task } = compile(query)
     query = ''
   }
 
@@ -36,7 +35,7 @@
     height: 5rem;
     margin: 3.2rem auto 1.6rem auto;
 
-    > :global(input) {
+    input {
       width: 60rem;
       height: 3.5rem;
     }
@@ -45,7 +44,9 @@
 
 <div>
   <div class="input-container">
-    <Input bind:ref={inputRef} bind:value={query} handleChange={handleQueryChange}/>
+    <form on:submit|preventDefault={handleSubmit}>
+      <input bind:this={inputRef} bind:value={query} placeholder="Add tasks here" type="text" />
+    </form>
   </div>
   <Watches {watches} {tasks} />
 </div>

@@ -1,8 +1,9 @@
 export let tasks = [
   {
     task: 'Water Plants',
-    tags: ['Home']
+    tags: ['Home'],
+    status: 'todo'
   },
-  { task: '9am Meeting', tags: ['Work'] },
-  { task: 'Gaming PC', tags: ['Shopping'] }
+  { task: '9am Meeting', tags: ['Work'], status: 'done' },
+  { task: 'Gaming PC', tags: ['Shopping'], status: 'inprogress' }
 ]

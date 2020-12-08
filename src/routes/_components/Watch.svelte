@@ -1,5 +1,6 @@
 <script>
   import Card from 'components/Card.svelte'
+  import { splitBy } from 'routes/_helper/array.js'
 
   export let tags = []
   export let tasks = []
@@ -8,11 +9,11 @@
   export let handleDragOver
   export let handleDrop
 
-  let filteredTasks
-
+  let todoTasks = [], doneTasks = [], filteredTasks = []
   $: filteredTasks = tasks.filter(task =>
     task.tags.every(tag => tags.includes(tag))
   )
+  $: [todoTasks, doneTasks] = splitBy(filteredTasks, task => task.status === 'todo')
 </script>
 
 <style lang="scss">
@@ -40,18 +41,16 @@
 <section>
   <Card {id} draggable {handleDragStart} {handleDragOver} {handleDrop}>
     <span>
-      {#each tags as tag}
-        @{tag}
-      {/each}
+      {#each tags as tag}@{tag}{/each}
     </span>
     <div class="watch">
-      {#each filteredTasks as item}
+      {#each todoTasks as item}
         <div class="task" contenteditable aria-multiline>{item.task}</div>
       {/each}
     </div>
     <hr />
     <div class="done">
-      {#each filteredTasks as item}
+      {#each doneTasks as item}
         <div class="task" aria-multiline>{item.task}</div>
       {/each}
     </div>

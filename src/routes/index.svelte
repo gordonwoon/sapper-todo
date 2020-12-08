@@ -19,12 +19,12 @@
   let inputRef
 
   const handleSubmit = async () => {
-    const { action, tags, task } = compile(query)
+    const { action, tags, task, status = 'todo' } = compile(query)
     if (action && task) {
       const res = await fetch('/task.json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ task, tags })
+        body: JSON.stringify({ task, tags, status })
       }).then(res => res.json())
 
       tasks = res;

@@ -15,6 +15,14 @@ export let tasks = [
     priority: 'A'
   },
   {
+    id: '2',
+    task:
+      'No priority ',
+    tags: ['Home'],
+    status: 'todo',
+    priority: ''
+  },
+  {
     id: '3',
     task: 'Planting more plants',
     tags: ['Home'],

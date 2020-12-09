@@ -72,9 +72,6 @@
     background-color: $pastel-blue;
     opacity: 0.75;
   }
-  hr {
-    margin: 0;
-  }
 </style>
 
 <section>

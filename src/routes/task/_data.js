@@ -1,28 +1,45 @@
 export let tasks = [
   {
+    id: '1',
     task: 'Water Plants',
     tags: ['Home'],
     status: 'todo',
     priority: 'A'
   },
   {
-    task: 'Plant more plants Plant more plants  Plant more plants  Plant more plants ',
+    id: '2',
+    task:
+      'Plant more plants Plant more plants  Plant more plants  Plant more plants ',
     tags: ['Home'],
     status: 'todo',
     priority: 'A'
   },
   {
+    id: '3',
     task: 'Planting more plants',
     tags: ['Home'],
     status: 'inprogress',
     priority: 'A'
   },
   {
+    id: '4',
     task: 'Planted more plants',
     tags: ['Home'],
     status: 'done',
     priority: 'A'
   },
-  { task: '9am Meeting', tags: ['Work'], status: 'done', priority: 'B' },
-  { task: 'Gaming PC', tags: ['Shopping'], status: 'inprogress', priority: 'C' }
+  {
+    id: '5',
+    task: '9am Meeting',
+    tags: ['Work'],
+    status: 'done',
+    priority: 'B'
+  },
+  {
+    id: '6',
+    task: 'Gaming PC',
+    tags: ['Shopping'],
+    status: 'inprogress',
+    priority: 'C'
+  }
 ]

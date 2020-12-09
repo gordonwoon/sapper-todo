@@ -1,16 +1,9 @@
-<script context="module">
-  export async function preload({ params }) {
-    const tags = await this.fetch(`/tag.json`).then(res => res.json());
-
-    return { tags };
-  }
-</script>
-
 <script>
   import Nav from 'routes/_components/navigation/Nav.svelte'
   import SideNav from 'routes/_components/navigation/SideNav.svelte'
 
-  export let tags
+  export let segment
+
   let expand = false
   const handleExpand = value => {
     expand = value;
@@ -28,7 +21,7 @@
 <div class="height-100 flex-column">
   <Nav {handleExpand} />
   <div class="flex-row flex-grow">
-    <SideNav {expand} {tags}/>
+    <SideNav {expand} />
     <main class="flex-grow">
       <slot />
     </main>

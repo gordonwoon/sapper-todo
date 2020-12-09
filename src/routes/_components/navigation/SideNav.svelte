@@ -1,9 +1,22 @@
 <script>
+  import { onMount, onDestroy } from 'svelte'
   import Icon from 'components/Icon.svelte'
   import { fade } from 'svelte/transition';
   import { linear } from 'svelte/easing';
+  import tagStore from 'stores/tags.js'
+
   export let expand
-  export let tags
+
+  let tags = { tags: [] }
+  let unsubscribeTag
+
+  onMount(() => {
+    unsubscribeTag = tagStore.subscribe(state => (tags = state))
+  })
+
+  onDestroy(() => {
+    if (unsubscribeTag) unsubscribeTag()
+  })
 </script>
 
 <style lang="scss">
@@ -35,10 +48,14 @@
 </style>
 
 <div class="side-nav flex-column" class:expand>
-  {#each tags as tag}
-    <div class="flex-row flex-align-items-center">
-      <Icon iconText={tag.name} iconClass="margin-right-medium" border medium />
-      {#if expand}<div transition:fade={{ duration: 150, easing: linear }} >{tag.name}</div>{/if}
-    </div>
-  {/each}
+  {#if !tags.error}
+    {#each tags.tags as tag}
+      <div class="flex-row flex-align-items-center">
+        <Icon iconText={tag.name} iconClass="margin-right-medium" border medium />
+        {#if expand}<div transition:fade={{ duration: 150, easing: linear }} >{tag.name}</div>{/if}
+      </div>
+    {/each}
+  {:else}
+    <p style="color: red">{tags.error.message}</p>
+  {/if}
 </div>

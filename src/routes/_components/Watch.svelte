@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte'
   import Card from 'components/Card.svelte'
-  import { splitBy } from 'helper/array.js'
+  import Task from 'routes/_components/Task.svelte';
   import taskStore from 'stores/task.js'
 
   export let tags = []
@@ -67,9 +67,6 @@
     background-color: $pastel-blue;
     opacity: 0.75;
   }
-  .task {
-    margin: .2rem 0;
-  }
   hr {
     margin: 0;
   }
@@ -84,21 +81,21 @@
       {#if inprogressTasks.length}
         <div class="inprogress task-container">
           {#each inprogressTasks as item}
-            <div class="task" contenteditable aria-multiline>{item.task}</div>
+            <Task task={item} />
           {/each}
         </div>
       {/if}
       {#if todoTasks.length}
         <div class="todo task-container">
           {#each todoTasks as item}
-            <div class="task" contenteditable aria-multiline>{item.task}</div>
+          <Task task={item} />
           {/each}
         </div>
       {/if}
       {#if doneTasks.length}
         <div class="done task-container">
           {#each doneTasks as item}
-            <div class="task" aria-multiline><strike>{item.task}</strike></div>
+          <Task task={item} strike/>
           {/each}
         </div>
       {/if}

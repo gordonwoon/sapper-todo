@@ -6,7 +6,7 @@ export let tasks = [
     priority: 'A'
   },
   {
-    task: 'Plant more plants',
+    task: 'Plant more plants Plant more plants  Plant more plants  Plant more plants ',
     tags: ['Home'],
     status: 'todo',
     priority: 'A'

@@ -3,7 +3,6 @@
   import Icon from 'components/Icon.svelte'
 
   export let handleExpand
-  export let segment
 
   let search
 </script>

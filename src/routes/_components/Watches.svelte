@@ -1,8 +1,18 @@
 <script>
+  import { onMount, onDestroy } from 'svelte'
   import Watch from 'routes/_components/Watch.svelte'
+  import watchStore from 'stores/watch.js'
 
-  export let watches = []
-  export let tasks = []
+  let watches = { watches: [] }
+  let unsubscribeWatch
+
+  onMount(() => {
+    unsubscribeWatch = watchStore.subscribe(state => (watches = state))
+  })
+
+  onDestroy(() => {
+    if (unsubscribeWatch) unsubscribeWatch()
+  })
 
   let handleDragStart = ev => {
     ev.dataTransfer.setData('text', ev.target.id)
@@ -13,12 +23,12 @@
   }
 
   let handleDrop = ev => {
-    const sourceId = ev.dataTransfer.getData('text');
-    const targetId = ev.target.id;
+    const sourceId = ev.dataTransfer.getData('text')
+    const targetId = ev.target.id
 
-    const temp = watches[sourceId];
-    watches[sourceId] = watches[targetId];
-    watches[targetId] = temp;
+    const temp = watches.watches[sourceId]
+    watches.watches[sourceId] = watches.watches[targetId]
+    watches.watches[targetId] = temp
   }
 </script>
 
@@ -32,13 +42,16 @@
 </style>
 
 <div class="grid-container">
-  {#each watches as watch, id}
-    <Watch
-      bind:tags={watch.tags}
-      bind:tasks
-      {id}
-      {handleDragStart}
-      {handleDragOver}
-      {handleDrop} />
-  {/each}
+  {#if !watches.error}
+    {#each watches.watches as watch, id}
+      <Watch
+        bind:tags={watch.tags}
+        {id}
+        {handleDragStart}
+        {handleDragOver}
+        {handleDrop} />
+    {/each}
+  {:else}
+    <p style="color: red">{watches.error.message}</p>
+  {/if}
 </div>

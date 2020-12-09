@@ -1,19 +1,8 @@
-<script context="module">
-  export async function preload({ params }) {
-    const watches = await this.fetch(`/watch.json`).then(res => res.json())
-    const tasks = await this.fetch(`/task.json`).then(res => res.json())
-
-    return { watches, tasks }
-  }
-</script>
-
 <script>
   import Watches from 'routes/_components/Watches.svelte'
   import { onMount } from 'svelte'
   import { compile } from 'routes/_helper/query.js'
-
-  export let watches
-  export let tasks
+  import taskStore from 'stores/task.js'
 
   let query
   let inputRef
@@ -26,8 +15,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ task, tags, status })
       }).then(res => res.json())
-
-      tasks = res;
+      taskStore.update(() => ({ tasks: res }))
     }
     query = ''
   }
@@ -54,8 +42,12 @@
 <div>
   <div class="input-container">
     <form on:submit|preventDefault={handleSubmit}>
-      <input bind:this={inputRef} bind:value={query} placeholder="Add tasks here" type="text" />
+      <input
+        bind:this={inputRef}
+        bind:value={query}
+        placeholder="Add tasks here"
+        type="text" />
     </form>
   </div>
-  <Watches bind:watches bind:tasks />
+  <Watches />
 </div>

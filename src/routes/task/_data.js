@@ -4,7 +4,7 @@ export let tasks = [
     task: 'Water Plants',
     tags: ['Home'],
     status: 'todo',
-    priority: 'A'
+    priority: 'B'
   },
   {
     id: '2',
@@ -19,7 +19,7 @@ export let tasks = [
     task: 'Planting more plants',
     tags: ['Home'],
     status: 'inprogress',
-    priority: 'A'
+    priority: 'C'
   },
   {
     id: '4',

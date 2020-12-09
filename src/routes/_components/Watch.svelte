@@ -1,8 +1,9 @@
 <script>
   import { onMount, onDestroy } from 'svelte'
   import Card from 'components/Card.svelte'
-  import Task from 'routes/_components/Task.svelte';
+  import Task from 'routes/_components/Task.svelte'
   import taskStore from 'stores/task.js'
+  import { sortBy } from 'helper/array.js'
 
   export let tags = []
   export let tasks = { tasks: [] }
@@ -37,6 +38,10 @@
       }
     }
   })
+
+  $: todoTasks = sortBy(todoTasks, 'priority')
+  $: inprogressTasks = sortBy(inprogressTasks, 'priority')
+  $: doneTasks = sortBy(doneTasks, 'priority')
 </script>
 
 <style lang="scss">

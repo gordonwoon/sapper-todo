@@ -23,15 +23,20 @@
 
   let todoTasks = [],
     doneTasks = [],
-    filteredTasks = []
+    inprogressTasks = [],
+    uncategorizedTasks = []
 
-  $: filteredTasks = tasks.tasks.filter(task =>
-    task.tags.every(tag => tags.includes(tag))
-  )
-  $: [todoTasks, doneTasks] = splitBy(
-    filteredTasks,
-    task => task.status === 'todo'
-  )
+
+  $: tasks.tasks.forEach(task => {
+    if (task.tags.every(tag => tags.includes(tag))) {
+      switch (task.status) {
+        case 'todo': $: todoTasks = todoTasks.concat(task); break;
+        case 'inprogress': $: inprogressTasks = inprogressTasks.concat(task); break;
+        case 'done': $: doneTasks = doneTasks.concat(task); break;
+        default: $: uncategorizedTasks = uncategorizedTasks.concat(task); break;
+      }
+    }
+  })
 </script>
 
 <style lang="scss">
@@ -41,15 +46,29 @@
     width: 24rem;
     min-height: 3rem;
   }
-  .watch {
-    margin-top: 1rem;
+  .title {
+    margin-bottom: 1rem;
+  }
+  .task-container {
+    border-radius: 2px;
+    color: black;
+    margin: .5rem 0;
+  }
+  .inprogress {
+    padding: 1rem 0;
+    background-color: $pastel-green;
+  }
+  .todo {
+    padding: 1rem 0;
+    background-color: $pastel-red;
   }
   .done {
-    margin-bottom: 1rem;
-    color: $border-color;
+    padding: 1rem 0;
+    background-color: $pastel-blue;
+    opacity: 0.75;
   }
   .task {
-    margin: 1rem 0;
+    margin: .2rem 0;
   }
   hr {
     margin: 0;
@@ -58,21 +77,31 @@
 
 <section>
   <Card {id} draggable {handleDragStart} {handleDragOver} {handleDrop}>
-    <span>
+    <div class="title">
       {#each tags as tag}@{tag}{/each}
-    </span>
+    </div>
     {#if !tasks.error}
-      <div class="watch">
-        {#each todoTasks as item}
-          <div class="task" contenteditable aria-multiline>{item.task}</div>
-        {/each}
-      </div>
-      <hr />
-      <div class="done">
-        {#each doneTasks as item}
-          <div class="task" aria-multiline>{item.task}</div>
-        {/each}
-      </div>
+      {#if inprogressTasks.length}
+        <div class="inprogress task-container">
+          {#each inprogressTasks as item}
+            <div class="task" contenteditable aria-multiline>{item.task}</div>
+          {/each}
+        </div>
+      {/if}
+      {#if todoTasks.length}
+        <div class="todo task-container">
+          {#each todoTasks as item}
+            <div class="task" contenteditable aria-multiline>{item.task}</div>
+          {/each}
+        </div>
+      {/if}
+      {#if doneTasks.length}
+        <div class="done task-container">
+          {#each doneTasks as item}
+            <div class="task" aria-multiline><strike>{item.task}</strike></div>
+          {/each}
+        </div>
+      {/if}
     {:else}
       <p style="color: red">{tasks.error.message}</p>
     {/if}

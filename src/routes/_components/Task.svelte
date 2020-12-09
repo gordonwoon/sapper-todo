@@ -1,10 +1,12 @@
 <script>
   export let task
-  export let status
-  export let strike
+  export let status = ''
+  export let strike = false
 </script>
 
 <style lang="scss">
+  @import 'src/styles/theme.scss';
+  $priority-width: 3px;
   .task {
     margin: .2rem 0;
     padding: 0 .5rem;
@@ -19,6 +21,11 @@
   }
   span {
     margin-top: 2px;
+    &.A { border-right: $priority-width solid red }
+    &.B { border-right: $priority-width solid yellow }
+    &.C { border-right: $priority-width solid lightsalmon }
+    &.D { border-right: $priority-width solid lightgreen }
+    &.E { border-right: $priority-width solid lightseagreen }
   }
 </style>
 
@@ -26,5 +33,5 @@
   {#if task.status !== 'done'}
     <input type="checkbox" />
   {/if}
-  <span>{task.task}</span>
+  <span class={task.priority}>{task.task}</span>
 </div>

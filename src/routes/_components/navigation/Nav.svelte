@@ -48,7 +48,7 @@
         iconName="fas fa-check-double"
         iconClass="margin-right-medium"
         fill />
-      <div>Do.Only</div></a>
+      <div>Do.First</div></a>
   </div>
   <div class="flex-grow input-container"><input bind:value={search} /></div>
   <div class="xs-hide" href="/login">

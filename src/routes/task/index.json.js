@@ -9,8 +9,8 @@ export function get(req, res, next) {
 }
 
 export function post(req, res, next) {
-  const { task, tags, status } = req.body;
-  tasks.push({ task, tags, status, id: (tasks.length+1).toString(36) })
+  const { task, tags, status, priority = '' } = req.body;
+  tasks.push({ task, tags, status, id: (tasks.length+1).toString(36), priority })
 
   res.end(JSON.stringify(tasks))
 }

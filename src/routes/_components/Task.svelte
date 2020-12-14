@@ -13,7 +13,7 @@
   }
   .grid {
     grid-template-columns: 16px 1fr;
-    grid-gap: .5rem;
+    grid-gap: .8rem;
     align-items: flex-start;
   }
   .strike {

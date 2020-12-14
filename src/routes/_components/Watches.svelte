@@ -1,7 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte'
   import Watch from 'routes/_components/Watch.svelte'
-  import watchStore from 'stores/watch.js'
+  import watchStore from 'stores/derived-watch.js'
 
   let watches = { watches: [] }
   let unsubscribeWatch
@@ -45,7 +45,7 @@
   {#if !watches.error}
     {#each watches.watches as watch, id}
       <Watch
-        bind:tags={watch.tags}
+        bind:watch
         {id}
         {handleDragStart}
         {handleDragOver}

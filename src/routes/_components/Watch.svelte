@@ -1,47 +1,19 @@
 <script>
-  import { onMount, onDestroy } from 'svelte'
   import Card from 'components/Card.svelte'
   import Task from 'routes/_components/Task.svelte'
-  import taskStore from 'stores/task.js'
-  import { sortBy } from 'helper/array.js'
 
-  export let tags = []
-  export let tasks = { tasks: [] }
   export let id
   export let handleDragStart
   export let handleDragOver
   export let handleDrop
+  export let watch
 
-  let unsubscribeTask
-
-  onMount(() => {
-    unsubscribeTask = taskStore.subscribe(state => (tasks = state))
-  })
-
-  onDestroy(() => {
-    if (unsubscribeTask) unsubscribeWatch()
-  })
-
-  let todoTasks = [],
-    doneTasks = [],
-    inprogressTasks = [],
-    uncategorizedTasks = []
-
-
-  $: tasks.tasks.forEach(task => {
-    if (task.tags.every(tag => tags.includes(tag))) {
-      switch (task.status) {
-        case 'todo': $: todoTasks = todoTasks.concat(task); break;
-        case 'inprogress': $: inprogressTasks = inprogressTasks.concat(task); break;
-        case 'done': $: doneTasks = doneTasks.concat(task); break;
-        default: $: uncategorizedTasks = uncategorizedTasks.concat(task); break;
-      }
-    }
-  })
-
-  $: todoTasks = sortBy(todoTasks, 'priority')
-  $: inprogressTasks = sortBy(inprogressTasks, 'priority')
-  $: doneTasks = sortBy(doneTasks, 'priority')
+  $: tags = watch.tags
+  $: tasks = watch.tasks
+  $: todoTasks = tasks.todoTasks
+  $: inprogressTasks = tasks.inprogressTasks
+  $: doneTasks = tasks.doneTasks
+  $: priority = tasks.priority
 </script>
 
 <style lang="scss">
@@ -78,6 +50,7 @@
   <Card {id} draggable {handleDragStart} {handleDragOver} {handleDrop}>
     <div class="title">
       {#each tags as tag}@{tag}{/each}
+      {priority}
     </div>
     {#if !tasks.error}
       {#if inprogressTasks.length}

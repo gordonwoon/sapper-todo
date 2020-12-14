@@ -7,6 +7,7 @@
   export let handleDragLeave = () => {}
   export let handleDragEnd = () => {}
   export let id
+  export let style
 </script>
 
 <style lang="scss">
@@ -19,6 +20,6 @@
   }
 </style>
 
-<div class="card" {id} {draggable} on:dragstart={handleDragStart} on:dragover={handleDragOver} on:drop={handleDrop} on:dragenter={handleDragEnter} on:dragleave={handleDragLeave} on:dragend={handleDragEnd}>
+<div class="card" {style} {id} {draggable} on:dragstart={handleDragStart} on:dragover={handleDragOver} on:drop={handleDrop} on:dragenter={handleDragEnter} on:dragleave={handleDragLeave} on:dragend={handleDragEnd}>
   <slot />
 </div>

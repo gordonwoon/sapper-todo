@@ -1,12 +1,15 @@
 <script>
   import Card from 'components/Card.svelte'
   import Task from 'routes/_components/Task.svelte'
+  import chroma from 'chroma-js';
 
   export let id
   export let handleDragStart
   export let handleDragOver
   export let handleDrop
   export let watch
+
+  const scale = chroma.scale(['red', 'yellow', 'lightsalmon', 'lightgreen', 'lightseagreen']).domain([1,5]);
 
   $: tags = watch.tags
   $: tasks = watch.tasks
@@ -47,10 +50,9 @@
 </style>
 
 <section>
-  <Card {id} draggable {handleDragStart} {handleDragOver} {handleDrop}>
+  <Card style={`border-top: 1px solid ${scale(priority)}`} {id} draggable {handleDragStart} {handleDragOver} {handleDrop}>
     <div class="title">
       {#each tags as tag}@{tag}{/each}
-      {priority}
     </div>
     {#if !tasks.error}
       {#if inprogressTasks.length}

@@ -1,9 +1,14 @@
+<script context="module">
+  import { tagStore } from 'stores/tags.js'
+
+  tagStore.fetchAll()
+</script>
+
 <script>
   import { onMount, onDestroy } from 'svelte'
   import Icon from 'components/Icon.svelte'
-  import { fade } from 'svelte/transition';
-  import { linear } from 'svelte/easing';
-  import { tagStore } from 'stores/tags.js'
+  import { fade } from 'svelte/transition'
+  import { linear } from 'svelte/easing'
 
   export let expand
 
@@ -11,7 +16,6 @@
   let unsubscribeTag
 
   onMount(() => {
-    tagStore.fetchAll()
     unsubscribeTag = tagStore.subscribe(state => (tags = state))
   })
 

@@ -1,17 +1,20 @@
+<script context="module">
+  import { watchStore } from 'stores/watch.js'
+  import { taskStore } from 'stores/task.js'
+
+  watchStore.fetchAll()
+  taskStore.fetchAll()
+</script>
+
 <script>
   import { onMount, onDestroy } from 'svelte'
   import Watch from 'routes/_components/Watch.svelte'
   import { derivedWatchStore } from 'stores/derived-watch.js'
-  import { watchStore } from 'stores/watch.js'
-  import { taskStore } from 'stores/task.js'
 
   let watches = { watches: [] }
   let unsubscribeWatch
 
-
   onMount(() => {
-    watchStore.fetchAll()
-    taskStore.fetchAll()
     unsubscribeWatch = derivedWatchStore.subscribe(state => (watches = state))
   })
 

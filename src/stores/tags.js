@@ -1,31 +1,21 @@
 import { writable } from 'svelte/store'
+import { fetchAPI } from 'stores/api.js'
 
 export const initialState = {
   tags: []
 }
 
-export const store = writable(initialState, fetchTaskData)
+function createTag() {
+  const { subscribe, set, update } = writable(initialState)
 
-async function fetchTaskData(set) {
-  try {
-    const response = await fetch('/tag.json')
-
-    if (response.ok) {
-      const tags = await response.json()
-      set({ tags })
-    } else {
-      const text = response.text()
-      throw new Error(text)
+  return {
+    subscribe,
+    update,
+    fetchAll: async () => {
+      const fetchedTag = await fetchAPI('tag.json')
+      set({ tags: fetchedTag.data, error: fetchedTag.error })
     }
-  } catch (error) {
-    set({ error })
   }
-  return () => {}
 }
 
-export const tagStore = {
-  subscribe: store.subscribe,
-  update: store.update
-}
-
-export default tagStore
+export const tagStore = createTag()

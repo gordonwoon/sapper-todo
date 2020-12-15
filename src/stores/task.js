@@ -1,31 +1,21 @@
 import { writable } from 'svelte/store'
+import { fetchAPI } from 'stores/api.js'
 
 export const initialState = {
   tasks: []
 }
 
-export const store = writable(initialState, fetchTaskData)
+function createTask() {
+  const { subscribe, set, update } = writable(initialState)
 
-async function fetchTaskData(set) {
-  try {
-    const response = await fetch('/task.json')
-
-    if (response.ok) {
-      const tasks = await response.json()
-      set({ tasks })
-    } else {
-      const text = response.text()
-      throw new Error(text)
+  return {
+    subscribe,
+    update,
+    fetchAll: async () => {
+      const fetchTask = await fetchAPI('task.json')
+      set({ tasks: fetchTask.data, error: fetchTask.error })
     }
-  } catch (error) {
-    set({ error })
   }
-  return () => {}
 }
 
-export const taskStore = {
-  subscribe: store.subscribe,
-  update: store.update
-}
-
-export default taskStore
+export const taskStore = createTask()

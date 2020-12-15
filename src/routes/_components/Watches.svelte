@@ -1,18 +1,24 @@
 <script>
   import { onMount, onDestroy } from 'svelte'
   import Watch from 'routes/_components/Watch.svelte'
-  import watchStore from 'stores/derived-watch.js'
+  import { derivedWatchStore } from 'stores/derived-watch.js'
+  import { watchStore } from 'stores/watch.js'
+  import { taskStore } from 'stores/task.js'
 
   let watches = { watches: [] }
   let unsubscribeWatch
 
+
   onMount(() => {
-    unsubscribeWatch = watchStore.subscribe(state => (watches = state))
+    watchStore.fetchAll()
+    taskStore.fetchAll()
+    unsubscribeWatch = derivedWatchStore.subscribe(state => (watches = state))
   })
 
   onDestroy(() => {
     if (unsubscribeWatch) unsubscribeWatch()
   })
+
 
   let handleDragStart = ev => {
     ev.dataTransfer.setData('text', ev.target.id)

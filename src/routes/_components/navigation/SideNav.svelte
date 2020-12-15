@@ -3,7 +3,7 @@
   import Icon from 'components/Icon.svelte'
   import { fade } from 'svelte/transition';
   import { linear } from 'svelte/easing';
-  import tagStore from 'stores/tags.js'
+  import { tagStore } from 'stores/tags.js'
 
   export let expand
 

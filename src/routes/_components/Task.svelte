@@ -1,6 +1,5 @@
 <script>
   export let task
-  export let status = ''
   export let strike = false
 </script>
 

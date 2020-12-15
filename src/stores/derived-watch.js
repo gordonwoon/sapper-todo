@@ -1,31 +1,9 @@
 import { derived } from 'svelte/store'
 
-import watchStore from 'stores/watch.js'
-import taskStore from 'stores/task.js'
+import { watchStore } from 'stores/watch.js'
+import { taskStore } from 'stores/task.js'
 
 import { sortBy } from 'helper/array.js'
-
-export const store = derived(
-  [watchStore, taskStore],
-  async ([$watches, $tasks], set) => {
-    if (!$watches.error) {
-      const derivedWatches = $watches.watches.map(watch => {
-        const derivedTasks = categorizeTasks($tasks, watch.tags)
-        return {
-          ...watch,
-          tasks: derivedTasks
-        }
-      })
-      set({
-        watches: derivedWatches
-      })
-    } else {
-      set({
-        $watches
-      })
-    }
-  }
-)
 
 const scoreMap = {
   A: 1,
@@ -35,7 +13,7 @@ const scoreMap = {
   E: 5
 }
 
-const categorizeTasks = (tasks, tags) => {
+function categorizeTasks(tasks, tags) {
   if (!tasks.error) {
     let todoTasks = [],
       doneTasks = [],
@@ -84,4 +62,32 @@ const categorizeTasks = (tasks, tags) => {
   return tasks
 }
 
-export default store
+function createDerivedWatch() {
+  const { subscribe } = derived(
+    [watchStore, taskStore],
+    ([$watches, $tasks], set) => {
+      if (!$watches.error) {
+        const derivedWatches = $watches.watches.map(watch => {
+          const derivedTasks = categorizeTasks($tasks, watch.tags)
+          return {
+            ...watch,
+            tasks: derivedTasks
+          }
+        })
+        set({
+          watches: derivedWatches
+        })
+      } else {
+        set({
+          $watches
+        })
+      }
+      return () => {}
+    }
+  )
+  return {
+    subscribe
+  }
+}
+
+export const derivedWatchStore = createDerivedWatch()

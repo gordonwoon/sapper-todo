@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import { compile } from 'routes/_helper/query.js'
-  import taskStore from 'stores/task.js'
+  import { taskStore } from 'stores/task.js'
 
   let query
   let inputRef

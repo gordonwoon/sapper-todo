@@ -1,31 +1,21 @@
 import { writable } from 'svelte/store'
+import { fetchAPI } from 'stores/api.js'
 
 export const initialState = {
   watches: []
 }
 
-export const store = writable(initialState, fetchWatchData)
+function createWatch() {
+  const { subscribe, set, update } = writable(initialState)
 
-async function fetchWatchData(set) {
-  try {
-    const response = await fetch('/watch.json')
-
-    if (response.ok) {
-      const watches = await response.json()
-      set({ watches })
-    } else {
-      const text = response.text()
-      throw new Error(text)
+  return {
+    subscribe,
+    update,
+    fetchAll: async () => {
+      const fetchedWatch = await fetchAPI('watch.json')
+      set({ watches: fetchedWatch.data, error: fetchedWatch.error })
     }
-  } catch (error) {
-    set({ error })
   }
-  return () => {}
 }
 
-export const watchStore = {
-  subscribe: store.subscribe,
-  update: store.update
-}
-
-export default watchStore
+export const watchStore = createWatch()

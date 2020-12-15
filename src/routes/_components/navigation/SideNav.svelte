@@ -11,6 +11,7 @@
   let unsubscribeTag
 
   onMount(() => {
+    tagStore.fetchAll()
     unsubscribeTag = tagStore.subscribe(state => (tags = state))
   })
 

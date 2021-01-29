@@ -49,5 +49,12 @@ export let tasks = [
     tags: ['Shopping'],
     status: 'inprogress',
     priority: 'C'
+  },
+  {
+    id: '7',
+    task: 'Cake',
+    tags: ['Birthday'],
+    status: 'inprogress',
+    priority: 'A'
   }
 ]
